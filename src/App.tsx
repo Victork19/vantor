@@ -9,18 +9,18 @@ const Mark = () => <span className="mark" aria-hidden="true"><i /><i /><i /></sp
 
 function OperatingFlow() {
   const nodes = [
-    ['01', 'ENQUIRY', 13, 21], ['02', 'PRODUCT', 83, 21], ['03', 'QUOTE', 29, 50],
-    ['04', 'PAYMENT', 72, 50], ['05', 'FULFILMENT', 14, 78], ['06', 'INSIGHT', 82, 78],
+    ['01', 'ENQUIRY', 12, 30], ['02', 'RESPONSE', 32, 30], ['03', 'QUOTE', 52, 30],
+    ['04', 'PAYMENT', 72, 30], ['05', 'FULFILMENT', 72, 70], ['06', 'INSIGHT', 52, 70],
   ]
   return <div className="flow-frame">
     <div className="flow-top"><span>VNT / SYSTEM MAP</span><span>OPERATING FLOW / 001</span></div>
     <svg className="flow-svg" viewBox="0 0 620 520" role="img" aria-label="A connected operating flow from customer enquiry to insight">
       <defs><linearGradient id="flowLine" x1="0" x2="1"><stop stopColor="#a7a7a7" stopOpacity=".25"/><stop offset=".45" stopColor="#f2f0ea"/><stop offset="1" stopColor="#a7a7a7" stopOpacity=".2"/></linearGradient></defs>
-      <path className="flow-line flow-draw" d="M82 105 L515 105 L180 260 L442 260 L82 414 L515 414" fill="none" stroke="url(#flowLine)" strokeWidth="1" />
-      <path className="flow-line flow-draw delay" d="M82 105 L180 260 L82 414 M515 105 L442 260 L515 414" fill="none" stroke="#f2f0ea" strokeOpacity=".35" strokeWidth="1" />
-      <path className="signal" d="M82 105 L515 105 L180 260 L442 260 L82 414 L515 414" fill="none" stroke="#fff" strokeWidth="2" strokeDasharray="2 17" />
+      <path className="flow-line flow-draw" d="M62 156 H186 H310 H434 V364 H310" fill="none" stroke="url(#flowLine)" strokeWidth="1.2" />
+      <path className="flow-line flow-draw delay" d="M62 156 V364 H186 H310" fill="none" stroke="#f2f0ea" strokeOpacity=".35" strokeWidth="1" />
+      <path className="signal" d="M62 156 H186 H310 H434 V364 H310" fill="none" stroke="#fff" strokeWidth="2" strokeDasharray="2 17" />
       <g className="central-mark"><path d="M274 188 L310 224 L346 188 L310 260 Z" fill="none" stroke="#f2f0ea" strokeWidth="1.2"/><path d="M274 332 L310 296 L346 332 L310 260 Z" fill="none" stroke="#f2f0ea" strokeWidth="1.2"/><circle cx="310" cy="260" r="5" fill="#f2f0ea"/></g>
-      {nodes.map(([num, label, x, y]) => <g key={label} className="flow-node" transform={`translate(${Number(x) * 6.2 - 18} ${Number(y) * 5.2 - 9})`}><rect width="36" height="18" fill="#222" stroke="#a7a7a7" strokeWidth=".6"/><text x="8" y="12" fill="#f2f0ea" fontSize="7" fontFamily="Arial">{num}</text><circle cx="30" cy="9" r="2" fill="#f2f0ea"/></g>)}
+      {nodes.map(([num, label, x, y]) => <g key={label} className="flow-node" transform={`translate(${Number(x) * 6.2 - 18} ${Number(y) * 5.2 - 9})`}><rect width="52" height="20" fill="#222" stroke="#a7a7a7" strokeWidth=".6"/><text x="7" y="13" fill="#f2f0ea" fontSize="7" fontFamily="Arial">{num}</text><text x="22" y="13" fill="#aaa9a2" fontSize="6" fontFamily="Arial">{label}</text><circle cx="47" cy="10" r="2" fill="#f2f0ea"/></g>)}
     </svg>
     <div className="flow-bottom"><span>CONNECTED BY DESIGN</span><span>LIVE / READY</span></div>
   </div>
@@ -56,7 +56,8 @@ function App() {
         .from('.engine-node', { scale: .5, opacity: 0, y: 24, stagger: .16, duration: .7 }, '-=.2')
         .from('.engine-note', { x: 35, opacity: 0, duration: .6 }, '-=.1')
         .to('.orbit-ring', { rotation: 120, duration: 2.3, ease: 'none' }, '-=1.3')
-      gsap.to('.engine-core .mark', { rotate: 180, duration: 4, repeat: -1, ease: 'none' })
+      gsap.from('.stage', { y: 42, opacity: 0, stagger: .12, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: '.transformation', start: 'top 72%' } })
+      gsap.from('.cap-row', { clipPath: 'inset(0 100% 0 0)', stagger: .16, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: '#capabilities', start: 'top 68%' } })
     }, root)
     return () => context.revert()
   }, [])
