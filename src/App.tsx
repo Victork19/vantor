@@ -22,6 +22,15 @@ function OperatingFlow() {
   </div>
 }
 
+function GlassConsole() {
+  return <div className="glass-console" aria-label="VANTOR operating system status">
+    <div className="glass-console-top"><span><i className="live-dot" /> SYSTEM STATUS</span><span>VNT—LIVE</span></div>
+    <div className="glass-console-main"><strong>COHERENT</strong><span>Operational pathways aligned</span></div>
+    <div className="glass-console-bars"><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /></div>
+    <div className="glass-console-bottom"><span>↑ 06 ACTIVE NODES</span><span>◎ 0 FRICTION EVENTS</span></div>
+  </div>
+}
+
 function App() {
   const path = window.location.pathname
   if (path === '/privacy' || path === '/terms') return <LegalPage type={path.slice(1) as 'privacy' | 'terms'} />
@@ -49,7 +58,7 @@ function App() {
   return <div className="site-shell">
     <header className="nav"><a className="brand" href="#top"><Mark /><span>VANTOR</span></a><nav className={menu ? 'nav-links open' : 'nav-links'}><a href="#what">What we do</a><a href="#method">Our approach</a><a href="#fit">Who we work with</a><a href="#faq">FAQ</a></nav><a className="nav-cta" href="#contact">Start a conversation <Arrow /></a><button className="menu-toggle" onClick={() => setMenu(!menu)} aria-label="Toggle navigation">{menu ? 'Close' : 'Menu'}</button></header>
     <main id="top">
-      <section className="hero"><div className="hero-copy"><div className="eyebrow"><span className="eyebrow-dot" /> Intelligent business systems <span className="eyebrow-rule" /></div><h1>Your business should <em>run</em> beautifully.</h1><p className="hero-intro">VANTOR designs, builds and operates intelligent systems that connect the moving parts of your business — making everyday operations easier to manage and growth easier to support.</p><div className="hero-actions"><a className="button" href="#contact">Transform your operations <Arrow /></a><a className="text-link" href="#what">Discover VANTOR <Arrow dark /></a></div><div className="hero-meta"><span>VNT—001</span><span>BUILD · OPERATE · EVOLVE</span><span>SCROLL TO EXPLORE ↓</span></div></div><OperatingFlow /></section>
+      <section className="hero"><div className="hero-copy"><div className="eyebrow"><span className="eyebrow-dot" /> Intelligent business systems <span className="eyebrow-rule" /></div><h1>Your business should <em>run</em> beautifully.</h1><p className="hero-intro">VANTOR designs, builds and operates intelligent systems that connect the moving parts of your business — making everyday operations easier to manage and growth easier to support.</p><div className="hero-actions"><a className="button" href="#contact">Transform your operations <Arrow /></a><a className="text-link" href="#what">Discover VANTOR <Arrow dark /></a></div><div className="hero-meta"><span>VNT—001</span><span>BUILD · OPERATE · EVOLVE</span><span>SCROLL TO EXPLORE ↓</span></div></div><div className="hero-visual"><OperatingFlow /><GlassConsole /></div></section>
 
       <section className="dark problem" id="what"><div className="section-kicker light"><span>01</span><span>The friction</span></div><div className="problem-grid"><h2>Growth creates complexity.<br /><span>Your systems should take it away.</span></h2><div className="problem-copy"><p>As a business grows, more tools, conversations, transactions and responsibilities enter the picture.</p><p>But connecting those moving parts often falls on the people running the business. Messages get missed. Work is repeated. Information becomes fragmented.</p><p className="highlight">VANTOR exists to change that.</p></div></div><div className="fragment-map"><div className="fragment-label">FRAGMENTED ACTIVITY / 006</div>{['MESSAGES','PRODUCT DATA','ORDERS','PAYMENTS','PEOPLE','FULFILMENT'].map((x, i) => <div className={`fragment f${i}`} key={x}><span>{x}</span><b>+</b></div>)}<div className="fragment-center">?</div></div></section>
 
