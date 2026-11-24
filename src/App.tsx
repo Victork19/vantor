@@ -1,4 +1,8 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Arrow = ({ dark = false }: { dark?: boolean }) => <span className={`arrow ${dark ? 'arrow-dark' : ''}`}>↗</span>
 const Mark = () => <span className="mark" aria-hidden="true"><i /><i /><i /></span>
@@ -38,6 +42,24 @@ function App() {
   const [menu, setMenu] = useState(false)
   const [activeStage, setActiveStage] = useState(2)
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+  const engineRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const root = engineRef.current
+    if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const context = gsap.context(() => {
+      const timeline = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        scrollTrigger: { trigger: root, start: 'top 78%', end: 'bottom 38%', scrub: 1.1 }
+      })
+      timeline.from('.orbit-ring', { scale: .35, opacity: 0, rotation: -90, duration: 1.2 })
+        .from('.engine-core', { scale: .2, opacity: 0, rotation: -45, duration: .55 }, '-=.35')
+        .from('.engine-node', { scale: .5, opacity: 0, y: 24, stagger: .16, duration: .7 }, '-=.2')
+        .from('.engine-note', { x: 35, opacity: 0, duration: .6 }, '-=.1')
+        .to('.orbit-ring', { rotation: 120, duration: 2.3, ease: 'none' }, '-=1.3')
+      gsap.to('.engine-core .mark', { rotate: 180, duration: 4, repeat: -1, ease: 'none' })
+    }, root)
+    return () => context.revert()
+  }, [])
   const stages = [
     ['01', 'Customer enquiry', 'The first signal enters the system.'],
     ['02', 'Response & context', 'The right information reaches the right person.'],
@@ -66,7 +88,7 @@ function App() {
 
       <section className="capabilities dark" id="capabilities"><div className="section-kicker light"><span>03</span><span>What VANTOR does</span></div><div className="cap-header"><h2>We build the systems<br /><span>behind a better-running business.</span></h2><p>There is no separate system to learn. We make the business itself more coherent.</p></div><div className="cap-list">{[['01','Understand','We study how your business operates, where processes become difficult and which problems are worth solving.'],['02','Engineer','We design and build the software, integrations, automations and intelligent workflows your business needs.'],['03','Operate','We deploy, monitor and maintain those systems so they remain reliable as your business evolves.'],['04','Improve','We identify new opportunities to reduce friction, improve performance and make operations more effective.']].map(([n,t,d]) => <div className="cap-row" key={n}><span className="cap-num">{n}</span><h3>{t}</h3><p>{d}</p><Arrow /></div>)}</div></section>
 
-      <section className="method" id="method"><div className="section-kicker"><span>04</span><span>The VANTOR method</span></div><div className="method-head"><h2>Find the friction.<br /><i>Engineer the improvement.</i><br />Measure the difference.</h2><p>Our friction-to-value engine is a continuous loop for making a business easier to run.</p></div><div className="engine"><div className="engine-orbit"><div className="orbit-ring" /><div className="engine-core"><Mark /><span>VNT<br />ENGINE</span></div>{[['01','MAP'],['02','IDENTIFY'],['03','RESOLVE'],['04','VERIFY']].map(([n,t], i) => <div className={`engine-node en${i}`} key={t}><b>{n}</b><span>{t}</span></div>)}</div><div className="engine-note"><span className="note-mark">↳</span><p>Every intervention begins with a baseline. Every improvement earns its place by proving its value.</p></div></div></section>
+      <section className="method" id="method"><div className="section-kicker"><span>04</span><span>The VANTOR method</span></div><div className="method-head"><h2>Find the friction.<br /><i>Engineer the improvement.</i><br />Measure the difference.</h2><p>Our friction-to-value engine is a continuous loop for making a business easier to run.</p></div><div className="engine" ref={engineRef}><div className="engine-orbit"><div className="orbit-ring" /><div className="engine-core"><Mark /><span>VNT<br />ENGINE</span></div>{[['01','MAP'],['02','IDENTIFY'],['03','RESOLVE'],['04','VERIFY']].map(([n,t], i) => <div className={`engine-node en${i}`} key={t}><b>{n}</b><span>{t}</span></div>)}</div><div className="engine-note"><span className="note-mark">↳</span><p>Every intervention begins with a baseline. Every improvement earns its place by proving its value.</p></div></div></section>
 
       <section className="ownership"><div className="ownership-visual"><div className="own-top">VNT / ARCHITECTURE</div><div className="own-diagram"><div className="own-v">V</div>{['CRM','COMMERCE','PEOPLE','FINANCE','DATA'].map((x, i) => <span className={`own-label ol${i}`} key={x}>{x}</span>)}<div className="own-lines" /></div><div className="own-bottom">YOUR BUSINESS / YOUR SYSTEM</div></div><div className="ownership-copy"><div className="section-kicker"><span>05</span><span>Built around your business</span></div><h2>Technology should adapt to your business.<br /><i>Not the other way around.</i></h2><p>Your business has its own workflows, relationships, rules and priorities. VANTOR designs systems around the way your business operates, using existing tools where appropriate and engineering new capabilities where necessary.</p><ul><li>Your business data remains yours.</li><li>Access and permissions are deliberately designed.</li><li>Systems are documented and portable.</li><li>Operational continuity matters.</li></ul></div></section>
 
