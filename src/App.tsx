@@ -19,7 +19,6 @@ function OperatingFlow() {
       <path className="flow-line flow-draw" d="M62 156 H186 H310 H434 V364 H310" fill="none" stroke="url(#flowLine)" strokeWidth="1.2" />
       <path className="flow-line flow-draw delay" d="M62 156 V364 H186 H310" fill="none" stroke="#f2f0ea" strokeOpacity=".35" strokeWidth="1" />
       <path className="signal" d="M62 156 H186 H310 H434 V364 H310" fill="none" stroke="#fff" strokeWidth="2" strokeDasharray="2 17" />
-      <g className="central-mark"><path d="M274 188 L310 224 L346 188 L310 260 Z" fill="none" stroke="#f2f0ea" strokeWidth="1.2"/><path d="M274 332 L310 296 L346 332 L310 260 Z" fill="none" stroke="#f2f0ea" strokeWidth="1.2"/><circle cx="310" cy="260" r="5" fill="#f2f0ea"/></g>
       {nodes.map(([num, label, x, y]) => <g key={label} className="flow-node" transform={`translate(${Number(x) * 6.2 - 18} ${Number(y) * 5.2 - 9})`}><rect width="52" height="20" fill="#222" stroke="#a7a7a7" strokeWidth=".6"/><text x="7" y="13" fill="#f2f0ea" fontSize="7" fontFamily="Arial">{num}</text><text x="22" y="13" fill="#aaa9a2" fontSize="6" fontFamily="Arial">{label}</text><circle cx="47" cy="10" r="2" fill="#f2f0ea"/></g>)}
     </svg>
     <div className="flow-bottom"><span>CONNECTED BY DESIGN</span><span>LIVE / READY</span></div>
