@@ -71,6 +71,14 @@ function App() {
       gsap.fromTo('.workflow-rail', { scaleX: 0 }, { scaleX: 1, transformOrigin: 'left center', ease: 'none', scrollTrigger: { trigger: '.workflow', start: 'top 72%', end: 'bottom 48%', scrub: true } })
       gsap.from('.ownership-visual', { x: -100, rotateY: 12, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.ownership', start: 'top 72%' } })
       gsap.from('.fit-tags span', { y: 25, opacity: 0, stagger: .09, duration: .5, ease: 'power2.out', scrollTrigger: { trigger: '.fit-tags', start: 'top 80%' } })
+      const story = gsap.timeline({ scrollTrigger: { trigger: '.storyboard', start: 'top top', end: 'bottom bottom', scrub: 1 } })
+      story.to('.story-chaos', { opacity: 0, scale: .82, duration: 1.2, ease: 'power2.in' })
+        .to('.chaos-chip', { x: 0, y: 0, rotate: 0, duration: 1, stagger: .05 }, '<')
+        .to('.story-connect', { opacity: 1, duration: .7 }, '-=.15')
+        .to('.story-path', { strokeDashoffset: 0, stagger: .14, duration: 1.3, ease: 'power2.out' }, '<')
+        .to('.story-signal', { attr: { cx: 470 }, duration: 1.2, ease: 'none' }, '<')
+        .to('.story-connect', { opacity: 0, scale: .88, duration: .8 })
+        .to('.story-clear', { opacity: 1, scale: 1, duration: .9 }, '-=.3')
     }, root)
     return () => context.revert()
   }, [])
@@ -93,7 +101,7 @@ function App() {
   ]
   return <div className="site-shell">
     <header className="nav"><a className="brand" href="#top"><Mark /><span>VANTOR</span></a><nav className={menu ? 'nav-links open' : 'nav-links'}><a href="#what">What we do</a><a href="#method">Our approach</a><a href="#fit">Who we work with</a><a href="#faq">FAQ</a></nav><a className="nav-cta" href="#contact">Start a conversation <Arrow /></a><button className="menu-toggle" onClick={() => setMenu(!menu)} aria-label="Toggle navigation">{menu ? 'Close' : 'Menu'}</button></header>
-    <main id="top">
+    <main id="top"><ImmersiveStory />
       <section className="hero"><div className="hero-copy"><div className="eyebrow"><span className="eyebrow-dot" /> Intelligent business systems <span className="eyebrow-rule" /></div><h1>Your business should <em>run</em> beautifully.</h1><p className="hero-intro">VANTOR designs, builds and operates intelligent systems that connect the moving parts of your business — making everyday operations easier to manage and growth easier to support.</p><div className="hero-actions"><a className="button" href="#contact">Transform your operations <Arrow /></a><a className="text-link" href="#what">Discover VANTOR <Arrow dark /></a></div><div className="hero-meta"><span>VNT—001</span><span>BUILD · OPERATE · EVOLVE</span><span>SCROLL TO EXPLORE ↓</span></div></div><div className="hero-visual"><OperatingFlow /><GlassConsole /></div></section>
 
       <section className="dark problem" id="what"><div className="section-kicker light"><span>01</span><span>The friction</span></div><div className="problem-grid"><h2>Growth creates complexity.<br /><span>Your systems should take it away.</span></h2><div className="problem-copy"><p>As a business grows, more tools, conversations, transactions and responsibilities enter the picture.</p><p>But connecting those moving parts often falls on the people running the business. Messages get missed. Work is repeated. Information becomes fragmented.</p><p className="highlight">VANTOR exists to change that.</p></div></div><div className="fragment-map"><div className="fragment-label">FRAGMENTED ACTIVITY / 006</div>{['MESSAGES','PRODUCT DATA','ORDERS','PAYMENTS','PEOPLE','FULFILMENT'].map((x, i) => <div className={`fragment f${i}`} key={x}><span>{x}</span><b>+</b></div>)}<div className="fragment-center">?</div></div></section>
