@@ -34,6 +34,11 @@ function GlassConsole() {
   </div>
 }
 
+function ImmersiveStory() {
+  const fragments = ['MESSAGES', 'PRODUCT DATA', 'ORDERS', 'PAYMENTS', 'PEOPLE', 'FULFILMENT']
+  return <section className="storyboard" id="story"><div className="story-copy"><div className="section-kicker light"><span>THE SHIFT</span><span>From friction to flow</span></div><h2>Make the complexity<br /><i>make sense.</i></h2><p>Most businesses don’t have one problem. They have a hundred small handoffs that never learned how to work together.</p><div className="story-progress"><span>01</span><span className="story-progress-line" /><span>03</span></div><div className="story-caption">Scroll to see the operation come into focus.</div></div><div className="story-viewport"><div className="story-pinned"><div className="story-meta"><span>VNT / OPERATIONAL LENS</span><span>SCROLL NARRATIVE / 001</span></div><div className="story-grid" /><div className="story-state story-chaos"><div className="story-state-title">FRAGMENTED ACTIVITY</div>{fragments.map((item, i) => <div className={`chaos-chip c${i}`} key={item}><span>0{i + 1}</span>{item}<b>+</b></div>)}<div className="story-question">Where does it go next?</div></div><div className="story-state story-connect"><div className="story-state-title">THE SYSTEM FINDS THE PATH</div><svg viewBox="0 0 500 360" aria-hidden="true"><path className="story-path path-a" d="M30 70 H150 L250 180 H470"/><path className="story-path path-b" d="M30 290 H150 L250 180 H470"/><path className="story-path path-c" d="M80 180 H250 H470"/><circle cx="250" cy="180" r="28"/><circle className="story-signal" cx="30" cy="180" r="4"/></svg><div className="story-system-core">VNT<br /><span>ENGINE</span></div></div><div className="story-state story-clear"><div className="story-state-title">ONE COHERENT OPERATION</div><div className="clear-route"><span>ENQUIRY</span><i>→</i><span>RESPONSE</span><i>→</i><span>PAYMENT</span><i>→</i><span>FULFILMENT</span></div><div className="clear-note">Every handoff has a next step.<br />Every improvement has a baseline.</div></div><div className="story-counter"><b>01</b><span>FRAGMENTED</span><b>02</b><span>CONNECTED</span><b>03</b><span>COHERENT</span></div></div></div></section>
+}
+
 function App() {
   const path = window.location.pathname
   if (path === '/privacy' || path === '/terms') return <LegalPage type={path.slice(1) as 'privacy' | 'terms'} />
@@ -57,6 +62,15 @@ function App() {
         .to('.orbit-ring', { rotation: 120, duration: 2.3, ease: 'none' }, '-=1.3')
       gsap.from('.stage', { y: 42, opacity: 0, stagger: .12, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: '.transformation', start: 'top 72%' } })
       gsap.from('.cap-row', { clipPath: 'inset(0 100% 0 0)', stagger: .16, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: '#capabilities', start: 'top 68%' } })
+      gsap.to('.hero-copy', { y: -110, opacity: .72, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
+      gsap.to('.hero-visual', { y: 95, rotate: 1.5, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
+      gsap.utils.toArray<HTMLElement>('.fragment').forEach((fragment, index) => gsap.to(fragment, { y: index % 2 ? -70 : 60, x: index % 3 === 0 ? 24 : -18, rotate: index % 2 ? -4 : 3, ease: 'none', scrollTrigger: { trigger: '.fragment-map', start: 'top bottom', end: 'bottom top', scrub: 1.2 } }))
+      gsap.to('.storyboard', { backgroundPosition: '50% 100%', ease: 'none', scrollTrigger: { trigger: '.storyboard', start: 'top bottom', end: 'bottom top', scrub: true } })
+      gsap.to('.problem-grid', { y: -60, ease: 'none', scrollTrigger: { trigger: '.problem', start: 'top bottom', end: 'bottom top', scrub: 1 } })
+      gsap.from('.problem-copy p', { x: 45, opacity: 0, stagger: .15, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: '.problem-copy', start: 'top 78%' } })
+      gsap.fromTo('.workflow-rail', { scaleX: 0 }, { scaleX: 1, transformOrigin: 'left center', ease: 'none', scrollTrigger: { trigger: '.workflow', start: 'top 72%', end: 'bottom 48%', scrub: true } })
+      gsap.from('.ownership-visual', { x: -100, rotateY: 12, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.ownership', start: 'top 72%' } })
+      gsap.from('.fit-tags span', { y: 25, opacity: 0, stagger: .09, duration: .5, ease: 'power2.out', scrollTrigger: { trigger: '.fit-tags', start: 'top 80%' } })
     }, root)
     return () => context.revert()
   }, [])
